@@ -8,7 +8,7 @@
   export let spanClass: string = 'ms-3';
   export let activeClass: string | undefined = undefined;
   export let nonActiveClass: string | undefined = undefined;
-  // export let active: boolean = false;
+  export let active: boolean | undefined = undefined;
 
   const context = getContext<SidebarType>('sidebarContext') ?? {};
   const activeUrlStore = getContext('activeUrl') as { subscribe: (callback: (value: string) => void) => void };
@@ -20,10 +20,10 @@
   });
   // console.log('sidbarUrl: ', sidebarUrl)
   // console.log('href: ', href)
-  $: active = sidebarUrl ? href === sidebarUrl : false;
-  // console.log('active: ', active)
+  $: active_final = active ?? (sidebarUrl ? href === sidebarUrl : false);
+  // console.log('active_final: ', active_final)
 
-  $: aClass = twMerge(active ? activeClass ?? context.activeClass : nonActiveClass ?? context.nonActiveClass, $$props.class);
+  $: aClass = twMerge(active_final ? activeClass ?? context.activeClass : nonActiveClass ?? context.nonActiveClass, $$props.class);
 </script>
 
 <li>
